@@ -2,6 +2,7 @@ package utils;
 
 import annotation.Controller;
 import annotation.Service;
+import config.ConfigHepler;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,7 +17,7 @@ public class ClassHelper {
     private static final Set<Class<?>> CLASS_SET;
 
     static {
-        //String basePackage = ConfigHelper.//TODO
+        String basePackage = ConfigHepler.getAppBasePackage();
         CLASS_SET = ClassUtil.getClassSet("");
     }
     /**

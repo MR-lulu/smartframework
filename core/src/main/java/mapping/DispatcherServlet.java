@@ -1,6 +1,7 @@
 package mapping;
 
 import com.alibaba.fastjson.JSON;
+import config.ConfigHepler;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import utils.BeanHelper;
@@ -8,7 +9,9 @@ import utils.CodeUtil;
 import utils.HelperLoader;
 import utils.StreamUtil;
 
+import javax.jws.WebService;
 import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +25,7 @@ import java.util.Map;
 /**
  * Created by blue on 2017/12/14.
  */
+@WebServlet(urlPatterns = "/*",loadOnStartup = 0)
 public class DispatcherServlet extends HttpServlet {
     @Override
     public void init(ServletConfig servletConfig) throws ServletException {
@@ -30,9 +34,9 @@ public class DispatcherServlet extends HttpServlet {
         //获取Servlet上下文对象
         ServletContext context = servletConfig.getServletContext();
         ServletRegistration jspServlet = context.getServletRegistration("jsp");
-        jspServlet.addMapping();//TODO
+        jspServlet.addMapping(ConfigHepler.getAppJspPath()+"*");
         ServletRegistration defaultServlet = context.getServletRegistration("default");
-        defaultServlet.addMapping();//TODO
+        defaultServlet.addMapping(ConfigHepler.getAppAssetPath()+"*");
     }
 
     @Override
@@ -78,7 +82,7 @@ public class DispatcherServlet extends HttpServlet {
                         model.forEach((k,v)->{
                            req.setAttribute(k,v);
                         });
-                        //TODO req.getRequestDispatcher(ConfigHelper.getAppJspPath())
+                        req.getRequestDispatcher(ConfigHepler.getAppJspPath()+path).forward(req,resp);
                     }
                 }
             } else if (rusult instanceof Data){

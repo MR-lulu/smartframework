@@ -15,7 +15,7 @@ public final class PropsUtil {
         try {
             in = Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName);
             if (in == null) {
-                throw new FileNotFoundException(fileName + "没有找到!");
+                throw new FileNotFoundException(fileName + "配置文件没有找到!");
             }
             properties = new Properties();
             properties.load(in);
