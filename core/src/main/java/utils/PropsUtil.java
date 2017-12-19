@@ -37,6 +37,6 @@ public final class PropsUtil {
         return getString(properties,key,"");
     }
     public static String getString(Properties properties,String key,String defaultValue){
-        return properties.containsKey(key) ? defaultValue : properties.getProperty(key);
+        return properties.containsKey(key) ?  properties.getProperty(key):defaultValue;
     }
 }

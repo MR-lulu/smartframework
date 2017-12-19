@@ -18,7 +18,7 @@ public class ClassHelper {
 
     static {
         String basePackage = ConfigHepler.getAppBasePackage();
-        CLASS_SET = ClassUtil.getClassSet("");
+        CLASS_SET = ClassUtil.getClassSet(basePackage);
     }
     /**
      * 获取应用包名下的所有类
@@ -34,7 +34,7 @@ public class ClassHelper {
      */
     public static Set<Class<?>> getServiceClassSet(){
         Set<Class<?>> classSet = new HashSet<>();
-        classSet.forEach(cls->{
+        CLASS_SET.forEach(cls->{
             if (cls.isAnnotationPresent(Service.class)){
                 classSet.add(cls);
             }
@@ -48,7 +48,7 @@ public class ClassHelper {
      */
     public static Set<Class<?>> getControllerClassSet(){
         Set<Class<?>> classSet = new HashSet<>();
-        classSet.forEach(cls->{
+        CLASS_SET.forEach(cls->{
             if (cls.isAnnotationPresent(Controller.class)){
                 classSet.add(cls);
             }

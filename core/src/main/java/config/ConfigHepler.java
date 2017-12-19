@@ -30,7 +30,7 @@ public final class ConfigHepler {
     //jsp路径
     public static String getAppJspPath(){
         return PropsUtil.getString(CONFIG_PROPS,ConfigConstans.APP_JSP_PATH,
-                "/WEB_INF/view/");
+                "/WEB-INF/view/");
     }
     //静态资源路径
     public static String getAppAssetPath(){

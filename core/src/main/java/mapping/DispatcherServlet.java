@@ -4,12 +4,10 @@ import com.alibaba.fastjson.JSON;
 import config.ConfigHepler;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import utils.BeanHelper;
 import utils.CodeUtil;
 import utils.HelperLoader;
 import utils.StreamUtil;
 
-import javax.jws.WebService;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,19 +28,21 @@ public class DispatcherServlet extends HttpServlet {
     @Override
     public void init(ServletConfig servletConfig) throws ServletException {
         //初始化相关的helper类
+        super.init();
         HelperLoader.init();
         //获取Servlet上下文对象
         ServletContext context = servletConfig.getServletContext();
         ServletRegistration jspServlet = context.getServletRegistration("jsp");
-        jspServlet.addMapping(ConfigHepler.getAppJspPath()+"*");
+        jspServlet.addMapping(ConfigHepler.getAppJspPath() + "*");
         ServletRegistration defaultServlet = context.getServletRegistration("default");
-        defaultServlet.addMapping(ConfigHepler.getAppAssetPath()+"*");
+        defaultServlet.addMapping(ConfigHepler.getAppAssetPath() + "*");
     }
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String requestMethod = req.getMethod().toLowerCase();
         String requestPath =  req.getPathInfo();
+        req.setCharacterEncoding("utf-8");
 
         //获取Handler 处理器
         Handler handler = HandlerMapping.getHandler(requestMethod,requestPath);
@@ -79,9 +79,11 @@ public class DispatcherServlet extends HttpServlet {
                         resp.sendRedirect(req.getContextPath()+path);
                     } else {
                         Map<String,Object> model = view.getModel();
-                        model.forEach((k,v)->{
-                           req.setAttribute(k,v);
-                        });
+                        if (model!=null) {
+                            model.forEach((k, v) -> {
+                                req.setAttribute(k, v);
+                            });
+                        }
                         req.getRequestDispatcher(ConfigHepler.getAppJspPath()+path).forward(req,resp);
                     }
                 }

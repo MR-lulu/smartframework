@@ -138,16 +138,7 @@ public class ClassUtil {
      */
     private static void doAddClass(Set<Class<?>> classSet,String className){
         Class<?> cls = loadClass(className,false);
-        if (checkAnnotation(cls)) {
-            classSet.add(cls);
-        }
-    }
-
-    public static void main(String[] args) {
-        Set<Class<?>> set = getClassSet("utils");
-        set.forEach(e->{
-            System.out.println(e.getName());
-        });
+        classSet.add(cls);
     }
 
     /**
