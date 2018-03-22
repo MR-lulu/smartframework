@@ -1,6 +1,7 @@
 package utils;
 
 import annotation.Controller;
+import annotation.Mapper;
 import annotation.Service;
 import config.ConfigHepler;
 
@@ -56,6 +57,16 @@ public class ClassHelper {
         return classSet;
     }
 
+    public static Set<Class<?>> getMapperClassSet(){
+        Set<Class<?>> classSet = new HashSet<>();
+        CLASS_SET.forEach(cls->{
+            if (cls.isAnnotationPresent(Mapper.class)){
+                classSet.add(cls);
+            }
+        });
+        return classSet;
+    }
+
     /**
      * 获取应用包名下的所有Bean类（包括Service和Controller)
      * @return
@@ -64,6 +75,7 @@ public class ClassHelper {
         Set<Class<?>> beanClassSet = new HashSet<>();
         beanClassSet.addAll(getServiceClassSet());
         beanClassSet.addAll(getControllerClassSet());
+        beanClassSet.addAll(getMapperClassSet());
         return beanClassSet;
     }
 }

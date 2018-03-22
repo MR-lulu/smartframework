@@ -140,18 +140,4 @@ public class ClassUtil {
         Class<?> cls = loadClass(className,false);
         classSet.add(cls);
     }
-
-    /**
-     * 判断是否使用了@Controller或者@Service注解
-     * @param cls
-     * @return
-     */
-    private static Boolean checkAnnotation(Class<?> cls){
-        for (Annotation annotation : cls.getAnnotations()){
-            if (annotation.annotationType() == Controller.class
-                    || annotation.annotationType()== Service.class)
-                return true;
-        }
-        return false;
-    }
 }

@@ -14,6 +14,10 @@ public class Param {
     private Map<String,Object> paramMap;
 
     public long getLong(String name){
-        return 1;
+        return (Long) paramMap.get(name);
+    }
+
+    public String getString(String name){
+        return (String) paramMap.get(name);
     }
 }
