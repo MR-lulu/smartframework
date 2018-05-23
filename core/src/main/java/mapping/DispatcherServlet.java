@@ -30,6 +30,7 @@ public class DispatcherServlet extends HttpServlet {
     @Override
     public void init(ServletConfig servletConfig) throws ServletException {
         //初始化相关的helper类
+        System.out.println("smart-framework init <------------------------------------>");
         super.init();
         HelperLoader.init();
         //获取Servlet上下文对象
